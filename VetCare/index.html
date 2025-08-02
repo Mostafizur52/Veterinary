@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VetCare Medical Hall</title>
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('buffelo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+
+    header {
+      background-color: rgba(0, 150, 135, 0.863);
+      color: #ffff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header nav {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    header nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 5px;
+    }
+
+    .auth-btn {
+      background-color: white;
+      color: #009688;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .auth-btn:hover {
+      background-color: #00796b;
+      color: white;
+    }
+
+    /* Language selector style */
+    #language-select {
+      margin-left: 20px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      color: #009688;
+      background-color: white;
+      transition: background-color 0.3s;
+    }
+    #language-select:hover {
+      background-color: #e0f2f1;
+    }
+
+    .intro, .doctors-section, .tips-section {
+      padding: 30px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.329);
+      margin: 20px;
+      border-radius: 10px;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
+
+    .feature-card {
+      background-color: rgba(255, 255, 255, 0.438);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      flex: 1 1 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .active-feature {
+      background-color: #009687 !important;
+      color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .doctor-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .doctor-card {
+      background-color: #ffffffaf;
+      border-radius: 10px;
+      padding: 20px;
+      width: 45%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: left;
+      display: flex;
+      gap: 20px;
+    }
+
+    .doctor-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .doctor-info {
+      flex: 1;
+    }
+
+    .tip-card, .appointment-card {
+      background-color: #ffffffaf;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+
+    footer {
+      background-color: rgba(0, 150, 135, 0.829);
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: rgb(255, 255, 255);
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .close {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+      .doctor-card {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        align-items: center;
+      }
+      .doctor-card img {
+        margin-bottom: 10px;
+      }
+      .doctor-info {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="site-title">VetCare Medical Hall</h1>
+    <p id="tagline">Your Trusted Animal Healthcare Partner</p>
+    <nav>
+      <a href="#" id="nav-home">Home</a>
+      <a href="#doctors" id="nav-doctors">Our Doctors</a>
+      <a href="#" id="nav-contact">Contact Us</a>
+      <a href="#" class="auth-btn" onclick="openModal('signinModal')" id="nav-signin">Sign In</a>
+      <a href="#" class="auth-btn" onclick="openModal('registerModal')" id="nav-register">Register</a>
+
+      <!-- Language Selector -->
+      <select id="language-select" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="bn">বাংলা</option>
+      </select>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h2 id="intro-title"><b>Welcome!</b></h2>
+    <p id="intro-desc1"> We provide expert veterinary care for your beloved pets and farm animals.</b></p>
+    <p id="intro-desc2"><b>Meet our experienced doctors and get online consultation or visit us at our clinic.</b></p>
+  </section>
+
+  <section class="features">
+    <div class="feature-card" onclick="highlightCard(this); showDoctors();">
+      <h3 id="feature1-title">Experienced Doctors</h3>
+      <p id="feature1-desc">Click to view doctor profiles and details.</p>
+    </div>
+    <div class="feature-card" onclick="highlightCard(this); showAppointments();">
+      <h3 id="feature2-title">Easy Appointments</h3>
+      <p id="feature2-desc">Quick booking process, expert doctor selection, and tips for your visit.</p>
+    </div>
+    <div class="feature-card" onclick="highlightCard(this); showTips();">
+      <h3 id="feature3-title">Animal Health Tips</h3>
+      <p id="feature3-desc">Click to view helpful pet care advice and prevention tips.</p>
+    </div>
+  </section>
+
+  <section id="doctors" class="doctors-section hidden">
+    <h2 id="doctors-title">Our Veterinary Experts</h2>
+    <div class="doctor-container">
+      <div class="doctor-card">
+        <img src="doctor1.jpg" alt="Dr. Jahangir Hossain" />
+        <div class="doctor-info">
+          <h3>Dr. Jahangir Hossain</h3>
+          <p><strong>Qualification:</strong> DVM, Chittagong Veterinary University | Clinical Training: Madras & Bangalore</p>
+          <p><strong>Experience:</strong> 15+ years in Poultry and Dairy Practice</p>
+          <p><strong>Phone:</strong> 01760743862</p>
+          <p><strong>Email:</strong> jahangir.vetcare@gmail.com</p>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img src="doctor2.jpg" alt="Md. Alamgir Hossain" />
+        <div class="doctor-info">
+          <h3>Md. Alamgir Hossain</h3>
+          <p><strong>Qualification:</strong> AI Technician, Bangladesh Agricultural University</p>
+          <p><strong>Experience:</strong> 15+ years in Dairy and Poultry Practice</p>
+          <p><strong>Phone:</strong> 01724313173</p>
+          <p><strong>Email:</strong> alamgir.vetcare@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="appointments" class="tips-section hidden">
+  <h2 id="appointments-title">Easy Appointment Guidelines</h2>
+  <div class="appointment-card">
+
+    <h3 id="booking-form-title" align="center"> Fillup and submit the form for an Appointment</h3>
+      <form id="booking-form" style="max-width: 600px; margin: 20px auto; background: #ffffffcc; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        <input type="text" id="booking-name" name="booking-name" placeholder="Full Name" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;" />
+        <input type="email" id="booking-email" name="booking-email" placeholder="Email" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;" />
+        <input type="tel" id="booking-phone" name="booking-phone" placeholder="Phone Number" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;" />
+        <input type="text" id="booking-address" name="booking-address" placeholder="Address" style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;" />
+
+        <select id="booking-service" name="booking-service" required style="width: 100%; padding: 10px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc;">
+          <option value="" disabled selected>Select Service</option>
+          <option value="consultation">Consultation</option>
+          <option value="vaccination">Vaccination</option>
+          <option value="treatment">Treatment</option>
+          <option value="general_checkup">General Check-up</option>
+          <option value="emergency">Emergency</option>
+          <option value="other">Other</option>
+        </select>
+
+        <button type="submit" id="booking-submit" style="width: 100%; padding: 12px; background-color: #009688; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+          Submit
+        </button>
+      </form>
+    
+    <h2 id="or-text">OR,</h2>
+    <ul style="margin-top: 20px;">
+      <li id="appointment-li-1">Call or WhatsApp us directly for appointment booking.</li>
+      <li id="appointment-li-2">Select your preferred doctor based on experience.</li>
+      <li id="appointment-li-3">Walk-in available from 9:00 AM to 8:00 PM (Sat-Fri).</li>
+      <li id="appointment-li-4"> <b>Emergency?</b>Call 24/7 support: <b>01789055373</b></li>
+      <li id="appointment-li-5">Bring pet's medical history (if any) during visit.</li>
+    </ul>
+  </div>
+</section>
+
+
+
+  <section id="tips" class="tips-section hidden">
+    <h2 id="tips-title">Animal Health Tips</h2>
+    <ul class="tip-card">
+      <li id="tip-1">Feed your pet at fixed times and in proper quantity.</li>
+      <li id="tip-2">Ensure fresh and clean water is always available.</li>
+      <li id="tip-3">Bathe your animal at least once or twice a month to maintain hygiene.</li>
+      <li id="tip-4">Regular vaccinations are essential (e.g., Rabies, Parvo).</li>
+      <li id="tip-5">Clean their teeth and trim nails regularly.</li>
+      <li id="tip-6">Provide daily walks or physical activity for fitness.</li>
+      <li id="tip-7">Visit a vet for a full check-up at least once a year.</li>
+    </ul>
+  </section>
+
+  <!-- Sign In Modal -->
+  <div class="modal" id="signinModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('signinModal')">&times;</span>
+      <h2 id="signin-title">Sign In</h2>
+      <form>
+        <input type="email" placeholder="Email" id="signin-email" required />
+        <input type="password" placeholder="Password" id="signin-password" required />
+        <button type="submit" id="signin-btn">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div class="modal" id="registerModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('registerModal')">&times;</span>
+      <h2 id="register-title">Register</h2>
+      <form>
+        <input type="text" placeholder="Full Name" id="register-name" required />
+        <input type="email" placeholder="Email" id="register-email" required />
+        <input type="password" placeholder="Password" id="register-password" required />
+        <button type="submit" id="register-btn">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p> &copy; 2025 VetCare Medical Hall |  Developed by Mostafiz-52 | Contact: 01789055373 </p>
+  </footer>
+
+  <script>
+    const translations = {
+      en: {
+        siteTitle: "VetCare Medical Hall",
+        tagline: "Your Trusted Animal Healthcare Partner",
+        navHome: "Home",
+        navDoctors: "Our Doctors",
+        navContact: "Contact Us",
+        signIn: "Sign In",
+        register: "Register",
+        introTitle: "Welcome!",
+        introDesc1:
+          "We provide expert veterinary care for your beloved pets and farm animals.",
+        introDesc2:
+          "Meet our experienced doctors and get online consultation or visit us at our clinic.",
+        feature1Title: "Experienced Doctors",
+        feature1Desc: "Click to view doctor profiles and details.",
+        feature2Title: "Easy Appointments",
+        feature2Desc: "Quick booking process, expert doctor selection, and tips for your visit.",
+        feature3Title: "Animal Health Tips",
+        feature3Desc: "Click to view helpful pet care advice and prevention tips.",
+        doctorsTitle: "Our Veterinary Experts",
+        appointmentsTitle: "Easy Appointment Guidelines",
+        bookingFormTitle: "Booking the form for an Appointment",
+        orText: "OR,",
+        appointmentList: [
+          "Call or WhatsApp us directly for appointment booking.",
+          "Select your preferred doctor based on experience.",
+          "Walk-in available from 9:00 AM to 8:00 PM (Sat-Fri).",
+          "Emergency? Call 24/7 support: 01789055373",
+          "Bring pet’s medical history (if any) during visit.",
+        ],
+        tipsTitle: "Animal Health Tips",
+        tipsList: [
+          "Feed your pet at fixed times and in proper quantity.",
+          "Ensure fresh and clean water is always available.",
+          "Bathe your animal at least once or twice a month to maintain hygiene.",
+          "Regular vaccinations are essential (e.g., Rabies, Parvo).",
+          "Clean their teeth and trim nails regularly.",
+          "Provide daily walks or physical activity for fitness.",
+          "Visit a vet for a full check-up at least once a year.",
+        ],
+        footerText: "© 2025 VetCare Medical Hall. All rights reserved.",
+        bookingPlaceholderFullName: "Full Name",
+        bookingPlaceholderEmail: "Email",
+        bookingPlaceholderPhone: "Phone Number",
+        bookingPlaceholderAddress: "Address",
+        bookingSelectService: "Select Service",
+        bookingServiceOptions: [
+          "Consultation",
+          "Vaccination",
+          "Treatment",
+          "General Check-up",
+          "Emergency",
+          "Other",
+        ],
+        bookingSubmitBtn: "Submit",
+        signinTitle: "Sign In",
+        signinEmailPlaceholder: "Email",
+        signinPasswordPlaceholder: "Password",
+        signinBtn: "Login",
+        registerTitle: "Register",
+        registerNamePlaceholder: "Full Name",
+        registerEmailPlaceholder: "Email",
+        registerPasswordPlaceholder: "Password",
+        registerBtn: "Register",
+      },
+      bn: {
+        siteTitle: "ভেটকেয়ার মেডিকেল হল",
+        tagline: "আপনার বিশ্বস্ত পশু চিকিৎসা সঙ্গী",
+        navHome: "হোম",
+        navDoctors: "আমাদের ডাক্তাররা",
+        navContact: "যোগাযোগ",
+        signIn: "সাইন ইন",
+        register: "রেজিস্টার",
+        introTitle: "স্বাগতম!",
+        introDesc1:
+          "আমরা আপনার প্রিয় পোষা প্রাণী ও খামারের পশুদের জন্য বিশেষজ্ঞ পশুচিকিৎসা সেবা প্রদান করি।",
+        introDesc2:
+          "আমাদের অভিজ্ঞ ডাক্তারের সাথে পরিচিত হোন এবং অনলাইনে পরামর্শ নিন বা আমাদের ক্লিনিকে আসুন।",
+        feature1Title: "অভিজ্ঞ ডাক্তারবৃন্দ",
+        feature1Desc: "ডাক্তারদের প্রোফাইল ও বিস্তারিত দেখার জন্য ক্লিক করুন।",
+        feature2Title: "সহজ অ্যাপয়েন্টমেন্ট",
+        feature2Desc: "দ্রুত বুকিং প্রক্রিয়া, বিশেষজ্ঞ ডাক্তার নির্বাচন, এবং ভিজিটের টিপস।",
+        feature3Title: "পশু স্বাস্থ্য টিপস",
+        feature3Desc: "সহজ পোষা প্রাণী যত্ন ও প্রতিরোধমূলক টিপস দেখুন।",
+        doctorsTitle: "আমাদের বিশেষজ্ঞ পশুচিকিৎসকগণ",
+        appointmentsTitle: "সহজ অ্যাপয়েন্টমেন্ট নির্দেশিকা",
+        bookingFormTitle: "অ্যাপয়েন্টমেন্টের জন্য ফর্ম পূরণ করুন",
+        orText: "অথবা,",
+        appointmentList: [
+          "অ্যাপয়েন্টমেন্ট বুকিংয়ের জন্য সরাসরি কল বা হোয়াটসঅ্যাপ করুন।",
+          "অভিজ্ঞতার ভিত্তিতে আপনার পছন্দের ডাক্তার নির্বাচন করুন।",
+          "সকাল ৯টা থেকে রাত ৮টা পর্যন্ত ওয়াক-ইন পাওয়া যাবে (শনিবার থেকে শুক্রবার)।",
+          "জরুরি? ২৪/৭ সাপোর্ট: ০১৭৮৯০৫৫৩৭৩ কল করুন।",
+          "ভিজিটের সময় পোষ্যের চিকিৎসা ইতিহাস সঙ্গে আনুন।",
+        ],
+        tipsTitle: "পশু স্বাস্থ্য টিপস",
+        tipsList: [
+          "আপনার পোষা প্রাণীকে নির্দিষ্ট সময়ে ও সঠিক পরিমাণে খাওয়ান।",
+          "সতত তাজা ও পরিষ্কার পানি সরবরাহ নিশ্চিত করুন।",
+          "সপ্তাহে অন্তত এক বা দুইবার গোসল করান পরিচ্ছন্নতার জন্য।",
+          "নিয়মিত টিকাদান জরুরি (যেমন র্যাবিজ, পার্ভো)।",
+          "তাদের দাঁত পরিষ্কার ও নখ trim করুন নিয়মিত।",
+          "ফিটনেসের জন্য দৈনিক হাঁটাচলা বা শারীরিক কার্যকলাপ দিন।",
+          "প্রতি বছরে অন্তত একবার পূর্ণ চেক-আপের জন্য ডাক্তারের কাছে যান।",
+        ],
+        footerText: "© ২০২৫ ভেটকেয়ার মেডিকেল হল। সর্বস্বত্ব সংরক্ষিত।",
+        bookingPlaceholderFullName: "পুরো নাম",
+        bookingPlaceholderEmail: "ইমেইল",
+        bookingPlaceholderPhone: "ফোন নম্বর",
+        bookingPlaceholderAddress: "ঠিকানা",
+        bookingSelectService: "সেবা নির্বাচন করুন",
+        bookingServiceOptions: [
+          "পরামর্শ",
+          "টিকা প্রদান",
+          "চিকিৎসা",
+          "সাধারণ পরীক্ষা",
+          "জরুরি",
+          "অন্যান্য",
+        ],
+        bookingSubmitBtn: "জমা দিন",
+        signinTitle: "সাইন ইন",
+        signinEmailPlaceholder: "ইমেইল",
+        signinPasswordPlaceholder: "পাসওয়ার্ড",
+        signinBtn: "লগইন",
+        registerTitle: "রেজিস্টার",
+        registerNamePlaceholder: "পুরো নাম",
+        registerEmailPlaceholder: "ইমেইল",
+        registerPasswordPlaceholder: "পাসওয়ার্ড",
+        registerBtn: "রেজিস্টার",
+      },
+    };
+
+    function setLanguage(lang) {
+      const t = translations[lang];
+
+      document.getElementById("site-title").textContent = t.siteTitle;
+      document.getElementById("tagline").textContent = t.tagline;
+
+      document.getElementById("nav-home").textContent = t.navHome;
+      document.getElementById("nav-doctors").textContent = t.navDoctors;
+      document.getElementById("nav-contact").textContent = t.navContact;
+      document.getElementById("nav-signin").textContent = t.signIn;
+      document.getElementById("nav-register").textContent = t.register;
+
+      document.getElementById("intro-title").textContent = t.introTitle;
+      document.getElementById("intro-desc1").textContent = t.introDesc1;
+      document.getElementById("intro-desc2").textContent = t.introDesc2;
+
+      document.getElementById("feature1-title").textContent = t.feature1Title;
+      document.getElementById("feature1-desc").textContent = t.feature1Desc;
+      document.getElementById("feature2-title").textContent = t.feature2Title;
+      document.getElementById("feature2-desc").textContent = t.feature2Desc;
+      document.getElementById("feature3-title").textContent = t.feature3Title;
+      document.getElementById("feature3-desc").textContent = t.feature3Desc;
+
+      document.getElementById("doctors-title").textContent = t.doctorsTitle;
+      document.getElementById("appointments-title").textContent = t.appointmentsTitle;
+
+      document.getElementById("booking-form-title").textContent = t.bookingFormTitle;
+
+      document.getElementById("booking-name").placeholder = t.bookingPlaceholderFullName;
+      document.getElementById("booking-email").placeholder = t.bookingPlaceholderEmail;
+      document.getElementById("booking-phone").placeholder = t.bookingPlaceholderPhone;
+      document.getElementById("booking-address").placeholder = t.bookingPlaceholderAddress;
+
+      const serviceSelect = document.getElementById("booking-service");
+      serviceSelect.options[0].text = t.bookingSelectService;
+      for (let i = 1; i < serviceSelect.options.length; i++) {
+        serviceSelect.options[i].text = t.bookingServiceOptions[i - 1];
+      }
+
+      document.getElementById("booking-submit").textContent = t.bookingSubmitBtn;
+
+      document.getElementById("or-text").textContent = t.orText;
+
+      const appointmentList = [
+        "appointment-li-1",
+        "appointment-li-2",
+        "appointment-li-3",
+        "appointment-li-4",
+        "appointment-li-5",
+      ];
+      appointmentList.forEach((id, idx) => {
+        document.getElementById(id).textContent = t.appointmentList[idx];
+      });
+
+      document.getElementById("tips-title").textContent = t.tipsTitle;
+
+      const tipsList = [
+        "tip-1",
+        "tip-2",
+        "tip-3",
+        "tip-4",
+        "tip-5",
+        "tip-6",
+        "tip-7",
+      ];
+      tipsList.forEach((id, idx) => {
+        document.getElementById(id).textContent = t.tipsList[idx];
+      });
+
+      document.getElementById("footer-text").textContent = t.footerText;
+
+      document.getElementById("signin-title").textContent = t.signinTitle;
+      document.getElementById("signin-email").placeholder = t.signinEmailPlaceholder;
+      document.getElementById("signin-password").placeholder = t.signinPasswordPlaceholder;
+      document.getElementById("signin-btn").textContent = t.signinBtn;
+
+      document.getElementById("register-title").textContent = t.registerTitle;
+      document.getElementById("register-name").placeholder = t.registerNamePlaceholder;
+      document.getElementById("register-email").placeholder = t.registerEmailPlaceholder;
+      document.getElementById("register-password").placeholder = t.registerPasswordPlaceholder;
+      document.getElementById("register-btn").textContent = t.registerBtn;
+    }
+
+    // শুরুতে English দেখাবে
+    setLanguage("en");
+
+    // Modal control functions
+    function openModal(id) {
+      document.getElementById(id).style.display = "flex";
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+    window.onclick = function (e) {
+      if (e.target.classList.contains("modal")) {
+        closeModal("signinModal");
+        closeModal("registerModal");
+      }
+    };
+
+    // Features section toggle functions
+    function showDoctors() {
+      document.getElementById("doctors").classList.remove("hidden");
+      document.getElementById("tips").classList.add("hidden");
+      document.getElementById("appointments").classList.add("hidden");
+      document.getElementById("doctors").scrollIntoView({ behavior: "smooth" });
+    }
+    function showTips() {
+      document.getElementById("tips").classList.remove("hidden");
+      document.getElementById("doctors").classList.add("hidden");
+      document.getElementById("appointments").classList.add("hidden");
+      document.getElementById("tips").scrollIntoView({ behavior: "smooth" });
+    }
+    function showAppointments() {
+      document.getElementById("appointments").classList.remove("hidden");
+      document.getElementById("doctors").classList.add("hidden");
+      document.getElementById("tips").classList.add("hidden");
+      document.getElementById("appointments").scrollIntoView({ behavior: "smooth" });
+    }
+    function highlightCard(card) {
+      card.classList.add("active-feature");
+      setTimeout(() => {
+        card.classList.remove("active-feature");
+      }, 150);
+    }
+  </script>
+</body>
+</html>
