@@ -70,13 +70,48 @@
       background-color: #e0f2f1;
     }
 
-    .intro, .doctors-section, .tips-section {
-      padding: 30px;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.329);
-      margin: 20px;
-      border-radius: 10px;
-    }
+         .intro, .doctors-section, .tips-section {
+       padding: 30px;
+       text-align: center;
+       background-color: rgba(255, 255, 255, 0);
+       margin: 20px;
+       border-radius: 10px;
+     }
+
+     .home-highlights {
+       display: flex;
+       justify-content: space-around;
+       flex-wrap: wrap;
+       gap: 20px;
+       margin-top: 30px;
+     }
+
+                                               .highlight-item {
+          background-color: rgba(255, 255, 255, 0.123);
+          padding: 8px;
+          border-radius: 4px;
+          box-shadow: 0 1px 3px rgb(0, 0, 0);
+          flex: 1;
+          min-width: 120px;
+          text-align: center;
+          transition: transform 0.3s ease;
+        }
+
+     .highlight-item:hover {
+       transform: translateY(-5px);
+       box-shadow: 0 5px 15px rgba(0, 0, 0, 0);
+     }
+
+                                               .highlight-item h3 {
+          color: #009687;
+          margin-bottom: 3px;
+          font-size: 12px;
+        }
+
+        .highlight-item p {
+          margin: 1px 0;
+          font-size: 10px;
+        }
 
     .features {
       display: flex;
@@ -86,12 +121,12 @@
     }
 
     .feature-card {
-      background-color: rgba(255, 255, 255, 0.438);
+      background-color: rgba(255, 255, 255, 0.295);
       border-radius: 10px;
       padding: 20px;
       margin: 10px;
       flex: 1 1 250px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.911);
       text-align: center;
       cursor: pointer;
       transition: background-color 0.3s;
@@ -140,6 +175,88 @@
       max-width: 600px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       text-align: left;
+    }
+
+    .contact-card {
+      background-color: #ffffffaf;
+      border-radius: 10px;
+      padding: 30px;
+      margin: 10px auto;
+      max-width: 1000px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .contact-form button:hover {
+      background-color: #00796b;
+    }
+
+    .contact-info h3 {
+      color: #009688;
+      margin-bottom: 15px;
+      margin-top: 25px;
+    }
+
+    .contact-info h3:first-child {
+      margin-top: 0;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    .contact-info ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .contact-info li {
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .contact-info li:last-child {
+      border-bottom: none;
     }
 
     footer {
@@ -228,8 +345,8 @@
     <p id="tagline">Your Trusted Animal Healthcare Partner</p>
     <nav>
       <a href="#" id="nav-home">Home</a>
-      <a href="#doctors" id="nav-doctors">Our Doctors</a>
-      <a href="#" id="nav-contact">Contact Us</a>
+      <a href="#" id="nav-doctors" onclick="showDoctors()">Our Doctors</a>
+      <a href="#" id="nav-contact" onclick="showContact()">Contact Us</a>
       <a href="#" class="auth-btn" onclick="openModal('signinModal')" id="nav-signin">Sign In</a>
       <a href="#" class="auth-btn" onclick="openModal('registerModal')" id="nav-register">Register</a>
 
@@ -241,26 +358,28 @@
     </nav>
   </header>
 
-  <section class="intro">
-    <h2 id="intro-title"><b>Welcome!</b></h2>
-    <p id="intro-desc1"> We provide expert veterinary care for your beloved pets and farm animals.</b></p>
-    <p id="intro-desc2"><b>Meet our experienced doctors and get online consultation or visit us at our clinic.</b></p>
-  </section>
+           <section class="intro">
+      <h2 id="intro-title"><b>Welcome!</b></h2>
+      <p id="intro-desc1" style="color: white;"><b> We provide expert veterinary care for your beloved pets and farm animals.</b></p>
+      <p id="intro-desc2" style="color: white">Meet our experienced doctors and get online consultation or visit us at our clinic.</b></p>
+    </section>
 
-  <section class="features">
-    <div class="feature-card" onclick="highlightCard(this); showDoctors();">
-      <h3 id="feature1-title">Experienced Doctors</h3>
-      <p id="feature1-desc">Click to view doctor profiles and details.</p>
-    </div>
-    <div class="feature-card" onclick="highlightCard(this); showAppointments();">
-      <h3 id="feature2-title">Easy Appointments</h3>
-      <p id="feature2-desc">Quick booking process, expert doctor selection, and tips for your visit.</p>
-    </div>
-    <div class="feature-card" onclick="highlightCard(this); showTips();">
-      <h3 id="feature3-title">Animal Health Tips</h3>
-      <p id="feature3-desc">Click to view helpful pet care advice and prevention tips.</p>
-    </div>
-  </section>
+     <section class="features">
+     <div class="feature-card" onclick="highlightCard(this); showDoctors();">
+       <h3 id="feature1-title">Experienced Doctors</h3>
+       <p id="feature1-desc">Click to view doctor profiles and details.</p>
+     </div>
+     <div class="feature-card" onclick="highlightCard(this); showAppointments();">
+       <h3 id="feature2-title">Easy Appointments</h3>
+       <p id="feature2-desc">Quick booking process, expert doctor selection, and tips for your visit.</p>
+     </div>
+     <div class="feature-card" onclick="highlightCard(this); showTips();">
+       <h3 id="feature3-title">Animal Health Tips</h3>
+       <p id="feature3-desc">Click to view helpful pet care advice and prevention tips.</p>
+     </div>
+   </section>
+
+   
 
   <section id="doctors" class="doctors-section hidden">
     <h2 id="doctors-title">Our Veterinary Experts</h2>
@@ -327,18 +446,66 @@
 
 
 
-  <section id="tips" class="tips-section hidden">
-    <h2 id="tips-title">Animal Health Tips</h2>
-    <ul class="tip-card">
-      <li id="tip-1">Feed your pet at fixed times and in proper quantity.</li>
-      <li id="tip-2">Ensure fresh and clean water is always available.</li>
-      <li id="tip-3">Bathe your animal at least once or twice a month to maintain hygiene.</li>
-      <li id="tip-4">Regular vaccinations are essential (e.g., Rabies, Parvo).</li>
-      <li id="tip-5">Clean their teeth and trim nails regularly.</li>
-      <li id="tip-6">Provide daily walks or physical activity for fitness.</li>
-      <li id="tip-7">Visit a vet for a full check-up at least once a year.</li>
-    </ul>
-  </section>
+     <section id="tips" class="tips-section hidden">
+     <h2 id="tips-title">Animal Health Tips</h2>
+     <ul class="tip-card">
+       <li id="tip-1">Feed your pet at fixed times and in proper quantity.</li>
+       <li id="tip-2">Ensure fresh and clean water is always available.</li>
+       <li id="tip-3">Bathe your animal at least once or twice a month to maintain hygiene.</li>
+       <li id="tip-4">Regular vaccinations are essential (e.g., Rabies, Parvo).</li>
+       <li id="tip-5">Clean their teeth and trim nails regularly.</li>
+       <li id="tip-6">Provide daily walks or physical activity for fitness.</li>
+       <li id="tip-7">Visit a vet for a full check-up at least once a year.</li>
+     </ul>
+   </section>
+
+   <section id="contact" class="tips-section hidden">
+     <h2 id="contact-title">Contact Us</h2>
+     <div class="contact-card">
+       <div class="contact-info">
+         <h3>Get in Touch</h3>
+         <p><strong>Address:</strong> VetCare Medical Hall, [Beguntal bazar, Tangailsadar]</p>
+         <p><strong>Phone:</strong> 01789055373</p>
+         <p><strong>Emergency:</strong> 01789055373 (24/7)</p>
+         <p><strong>Email:</strong> info@vetcare.com</p>
+         <p><strong>WhatsApp:</strong> 01789055373</p>
+         <p><strong>Emergency?</strong> <b>24/7 call: 01789055373 </b></p>
+         
+         <h3>Open</h3>
+         <p><strong>Saturday - Thursday:</strong> 9:00 AM - 8:00 PM</p>
+         <p><strong>Friday:</strong> 9:00 AM - 12:00 PM & 3:00 PM - 9:00 PM</p>
+         
+         
+         <h3>Services</h3>
+         <ul>
+           <li>Pet Consultation</li>
+           <li>Vaccination</li>
+           <li>Emergency Treatment</li>
+           <li>Surgery</li>
+           <li>General check-up</li>
+           <li>Preventive Care</li>
+         </ul>
+       </div>
+       
+       <div class="contact-form">
+         <h3>Send us a Message</h3>
+         <form id="contact-form">
+           <input type="text" id="contact-name" placeholder="Your Name" required />
+           <input type="email" id="contact-email" placeholder="Your Email" required />
+           <input type="tel" id="contact-phone" placeholder="Your Phone" required />
+           <select id="contact-subject" required>
+             <option value="">Select Subject</option>
+             <option value="appointment">Appointment Request</option>
+             <option value="emergency">Emergency</option>
+             <option value="general">General Inquiry</option>
+             <option value="feedback">Feedback</option>
+           </select>
+           <textarea id="contact-message" placeholder="Your Message" rows="5" required></textarea>
+           <button type="submit" id="contact-submit">Send Message</button>
+         </form>
+       </div>
+     </div>
+   </section>
 
   <!-- Sign In Modal -->
   <div class="modal" id="signinModal">
@@ -365,11 +532,32 @@
         <button type="submit" id="register-btn">Register</button>
       </form>
     </div>
-  </div>
-
-  <footer>
-    <p> &copy; 2025 VetCare Medical Hall |  Developed by Mostafiz-52 | Contact: 01789055373 </p>
-  </footer>
+     </div>
+ 
+   <!-- Home Highlights Section - Always visible at bottom -->
+   <section class="intro">
+     <div class="home-highlights">
+       <div class="highlight-item">
+         <h3>🆘 Emergency Service</h3>
+         <p>24/7 Emergency Support</p>
+         <p><strong>Call: 01789055373</strong></p>
+       </div>
+       <div class="highlight-item">
+         <h3>🕒 Opening Hours</h3>
+         <p>Saturday - Thursday: 9:00 AM - 8:00 PM</p>
+         <p>Friday: 9:00 AM - 12:00 PM & 3:00 PM - 9:00 PM</p>
+       </div>
+       <div class="highlight-item">
+         <h3>📍 Location</h3>
+         <p>Beguntal Bazar, Tangail Sadar</p>
+         <p>Easy to find, convenient location</p>
+       </div>
+     </div>
+   </section>
+ 
+   <footer>
+     <p> &copy; 2025 VetCare Medical Hall |  Developed by Mostafiz-52 | Contact: 01789055373 </p>
+   </footer>
 
   <script>
     const translations = {
@@ -436,8 +624,42 @@
         registerNamePlaceholder: "Full Name",
         registerEmailPlaceholder: "Email",
         registerPasswordPlaceholder: "Password",
-        registerBtn: "Register",
-      },
+                 registerBtn: "Register",
+         contactTitle: "Contact Us",
+         contactGetInTouch: "Get in Touch",
+         contactAddress: "Address:",
+         contactPhone: "Phone:",
+         contactEmergency: "Emergency:",
+         contactEmail: "Email:",
+         contactWhatsApp: "WhatsApp:",
+         contactOpeningHours: "Opening Hours",
+         contactMondayFriday: "Monday - Friday:",
+         contactSaturday: "Saturday:",
+         contactSunday: "Sunday:",
+         contactServices: "Services",
+         contactPetConsultation: "Pet Consultation",
+         contactVaccination: "Vaccination",
+         contactEmergencyTreatment: "Emergency Treatment",
+         contactSurgery: "Surgery",
+         contactDentalCare: "Dental Care",
+         contactPreventiveCare: "Preventive Care",
+         contactSendMessage: "Send us a Message",
+         contactNamePlaceholder: "Your Name",
+         contactEmailPlaceholder: "Your Email",
+         contactPhonePlaceholder: "Your Phone",
+         contactSubjectPlaceholder: "Select Subject",
+         contactAppointmentRequest: "Appointment Request",
+         contactEmergencyOption: "Emergency",
+         contactGeneralInquiry: "General Inquiry",
+         contactFeedback: "Feedback",
+         contactMessagePlaceholder: "Your Message",
+         contactSubmitBtn: "Send Message",
+         emergencyService: "🆘 জরুরি সেবা",
+         emergencySupport: "২৪/৭ জরুরি সহায়তা",
+         openingHours: "🕒 খোলার সময়",
+         location: "📍 অবস্থান",
+         easyToFind: "সহজে খুঁজে পাওয়া যায়, সুবিধাজনক অবস্থান",
+       },
       bn: {
         siteTitle: "ভেটকেয়ার মেডিকেল হল",
         tagline: "আপনার বিশ্বস্ত পশু চিকিৎসা সঙ্গী",
@@ -501,8 +723,42 @@
         registerNamePlaceholder: "পুরো নাম",
         registerEmailPlaceholder: "ইমেইল",
         registerPasswordPlaceholder: "পাসওয়ার্ড",
-        registerBtn: "রেজিস্টার",
-      },
+                 registerBtn: "রেজিস্টার",
+         contactTitle: "যোগাযোগ করুন",
+         contactGetInTouch: "যোগাযোগ করুন",
+         contactAddress: "ঠিকানা:",
+         contactPhone: "ফোন:",
+         contactEmergency: "জরুরি:",
+         contactEmail: "ইমেইল:",
+         contactWhatsApp: "হোয়াটসঅ্যাপ:",
+         contactOpeningHours: "খোলার সময়",
+         contactMondayFriday: "সোমবার - শুক্রবার:",
+         contactSaturday: "শনিবার:",
+         contactSunday: "রবিবার:",
+         contactServices: "সেবাসমূহ",
+         contactPetConsultation: "পোষা প্রাণীর পরামর্শ",
+         contactVaccination: "টিকা প্রদান",
+         contactEmergencyTreatment: "জরুরি চিকিৎসা",
+         contactSurgery: "অস্ত্রোপচার",
+         contactDentalCare: "দাঁতের যত্ন",
+         contactPreventiveCare: "প্রতিরোধমূলক যত্ন",
+         contactSendMessage: "আমাদের বার্তা পাঠান",
+         contactNamePlaceholder: "আপনার নাম",
+         contactEmailPlaceholder: "আপনার ইমেইল",
+         contactPhonePlaceholder: "আপনার ফোন",
+         contactSubjectPlaceholder: "বিষয় নির্বাচন করুন",
+         contactAppointmentRequest: "অ্যাপয়েন্টমেন্ট অনুরোধ",
+         contactEmergencyOption: "জরুরি",
+         contactGeneralInquiry: "সাধারণ জিজ্ঞাসা",
+         contactFeedback: "মতামত",
+         contactMessagePlaceholder: "আপনার বার্তা",
+         contactSubmitBtn: "বার্তা পাঠান",
+         emergencyService: "🆘 জরুরি সেবা",
+         emergencySupport: "২৪/৭ জরুরি সহায়তা",
+         openingHours: "🕒 খোলার সময়",
+         location: "📍 অবস্থান",
+         easyToFind: "সহজে খুঁজে পাওয়া যায়, সুবিধাজনক অবস্থান",
+       },
     };
 
     function setLanguage(lang) {
@@ -582,10 +838,26 @@
       document.getElementById("signin-btn").textContent = t.signinBtn;
 
       document.getElementById("register-title").textContent = t.registerTitle;
-      document.getElementById("register-name").placeholder = t.registerNamePlaceholder;
-      document.getElementById("register-email").placeholder = t.registerEmailPlaceholder;
-      document.getElementById("register-password").placeholder = t.registerPasswordPlaceholder;
-      document.getElementById("register-btn").textContent = t.registerBtn;
+             document.getElementById("register-name").placeholder = t.registerNamePlaceholder;
+       document.getElementById("register-email").placeholder = t.registerEmailPlaceholder;
+       document.getElementById("register-password").placeholder = t.registerPasswordPlaceholder;
+       document.getElementById("register-btn").textContent = t.registerBtn;
+
+       // Contact section translations
+       document.getElementById("contact-title").textContent = t.contactTitle;
+       document.getElementById("contact-name").placeholder = t.contactNamePlaceholder;
+       document.getElementById("contact-email").placeholder = t.contactEmailPlaceholder;
+       document.getElementById("contact-phone").placeholder = t.contactPhonePlaceholder;
+       document.getElementById("contact-message").placeholder = t.contactMessagePlaceholder;
+       document.getElementById("contact-submit").textContent = t.contactSubmitBtn;
+
+       // Update home highlights if they exist
+       const highlightItems = document.querySelectorAll('.highlight-item h3');
+       if (highlightItems.length >= 3) {
+         highlightItems[0].textContent = t.emergencyService;
+         highlightItems[1].textContent = t.openingHours;
+         highlightItems[2].textContent = t.location;
+       }
     }
 
     // শুরুতে English দেখাবে
@@ -618,12 +890,33 @@
       document.getElementById("appointments").classList.add("hidden");
       document.getElementById("tips").scrollIntoView({ behavior: "smooth" });
     }
-    function showAppointments() {
-      document.getElementById("appointments").classList.remove("hidden");
-      document.getElementById("doctors").classList.add("hidden");
-      document.getElementById("tips").classList.add("hidden");
-      document.getElementById("appointments").scrollIntoView({ behavior: "smooth" });
-    }
+         function showAppointments() {
+       document.getElementById("appointments").classList.remove("hidden");
+       document.getElementById("doctors").classList.add("hidden");
+       document.getElementById("tips").classList.add("hidden");
+       document.getElementById("contact").classList.add("hidden");
+       document.getElementById("appointments").scrollIntoView({ behavior: "smooth" });
+     }
+
+     function showContact() {
+       document.getElementById("contact").classList.remove("hidden");
+       document.getElementById("doctors").classList.add("hidden");
+       document.getElementById("tips").classList.add("hidden");
+       document.getElementById("appointments").classList.add("hidden");
+       document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+     }
+
+     // Contact form submission
+     document.addEventListener('DOMContentLoaded', function() {
+       const contactForm = document.getElementById('contact-form');
+       if (contactForm) {
+         contactForm.addEventListener('submit', function(e) {
+           e.preventDefault();
+           alert('Thank you for your message! We will get back to you soon.');
+           contactForm.reset();
+         });
+       }
+     });
     function highlightCard(card) {
       card.classList.add("active-feature");
       setTimeout(() => {
@@ -633,4 +926,3 @@
   </script>
 </body>
 </html>
-
